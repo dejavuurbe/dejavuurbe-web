@@ -1,0 +1,40 @@
+/* Ajuste visual exclusivo para escritorio. Mantiene intacta la experiencia móvil. */
+@media (min-width:1001px){
+  /* Escala general: ~15% más compacta para uso cómodo al 100% de zoom */
+  section{padding:78px 0}
+  .song-hero{padding:86px 0 58px}
+  .section-head{margin-bottom:32px;gap:30px}
+  .section-head h2{font-size:clamp(1.75rem,4.25vw,2.95rem)}
+  .intro-grid{gap:60px}
+  .intro-grid h2{font-size:clamp(1.75rem,3.4vw,2.65rem)}
+  .intro-grid p{font-size:.98rem}
+  .lead{font-size:clamp(.98rem,1.65vw,1.12rem)}
+  .song-hero h1{font-size:clamp(2.4rem,5.9vw,4.8rem)}
+  .prose h2{font-size:clamp(1.75rem,3.4vw,2.8rem)}
+  .prose p{font-size:.98rem}
+  .feature{padding:25px}
+  .feature .num{font-size:2.55rem}
+  .feature h3{font-size:1.28rem}
+  .feature p,.section-head p{font-size:.94rem}
+  .links-grid{gap:10px}
+  .official-link{padding:16px}
+  .actions{margin-top:25px}
+  .btn{padding:10px 16px}
+
+  /* Catálogo: 10 temas = 2 filas de 5. Portadas completas y más contenidas. */
+  .catalog-visual{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+  .catalog-visual .track-card{max-width:none}
+  .track-cover{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;background:#0b0b0b}
+  .track-copy{padding:14px 14px 16px}
+  .track-card h3{font-size:1.08rem}
+  .track-card p{font-size:.78rem}
+  .track-card small{font-size:.7rem}
+
+  /* Mantener la portada principal con presencia; solo compactar levemente texto y controles. */
+  .hero-stage{gap:46px;padding:62px 0 50px}
+  .hero-stage .hero-content{max-width:560px}
+  .hero h1{font-size:clamp(4rem,6.8vw,6.55rem)}
+  .hero .lead{font-size:clamp(1rem,1.3vw,1.16rem)}
+  .hero .actions{margin-top:27px;gap:12px}
+  .hero .btn{min-height:55px;padding:13px 19px;font-size:.84rem}
+}
