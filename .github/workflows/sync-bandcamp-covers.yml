@@ -1,0 +1,43 @@
+name: Sincronizar portadas Bandcamp
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync_bandcamp_covers.py'
+      - 'data/canciones.json'
+
+permissions:
+  contents: write
+
+jobs:
+  covers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar Pillow
+        run: python -m pip install --quiet pillow
+      - name: Descargar y optimizar portadas oficiales
+        run: python scripts/sync_bandcamp_covers.py
+      - name: Verificar diez portadas
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          files=list(Path('assets/covers').glob('*.webp'))
+          assert len(files) == 10, f'Se esperaban 10 portadas y hay {len(files)}'
+          for f in files:
+              assert f.stat().st_size > 8000, f'{f} es demasiado pequeño'
+          print('OK: 10 portadas válidas')
+          PY
+      - name: Publicar portadas
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add assets/covers
+          if git diff --cached --quiet; then
+            echo "Portadas sin cambios"
+          else
+            git commit -m "Sincronizar portadas oficiales desde Bandcamp"
+            git push
+          fi
