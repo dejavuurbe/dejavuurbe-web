@@ -24,23 +24,10 @@ jobs:
           test -f prensa/index.html
           test -f enlaces/index.html
           test -f contacto/index.html
-      - name: Verificar páginas del catálogo
-        run: |
-          for p in \
-            ya-no-puedo-evitarte \
-            cada-noche \
-            balada-para-un-corto-amor \
-            el-fantasma \
-            brilla \
-            dos-extranos \
-            luna \
-            triste-cancion \
-            despiertame \
-            luna-acustico; do
-              test -f "musica/$p/index.html"
-          done
-      - name: Verificar metadatos mínimos
+      - name: Verificar estructura y metadatos
         run: |
           grep -q 'MusicGroup' index.html
           grep -q 'dejavuurbe.com.ar' sitemap.xml
           grep -R -q 'MusicRecording' musica
+      - name: Verificar sincronización del catálogo
+        run: python scripts/verificar_catalogo.py
