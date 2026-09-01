@@ -1,0 +1,14 @@
+{
+  "artista": "DejavuUrbe",
+  "estado": "pendiente_de_distribucion",
+  "perfiles_esperados": 4,
+  "perfiles": [],
+  "regla_publicacion": "No publicar ni inferir URLs de perfiles de streaming hasta que la distribuidora o la propia plataforma confirme el perfil oficial de artista.",
+  "uso": {
+    "sameAs_musicgroup": true,
+    "pagina_enlaces": true,
+    "pagina_musica": true,
+    "paginas_canciones": true,
+    "llms_txt": true
+  }
+}
