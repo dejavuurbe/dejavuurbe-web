@@ -3,29 +3,80 @@ from pathlib import Path
 import re
 
 root = Path(__file__).resolve().parents[1]
-index = root / 'index.html'
 css = root / 'assets/css/styles.css'
-
-html = index.read_text(encoding='utf-8')
-hero = '''<section class="hero" id="inicio"><div class="wrap hero-stage"><div class="hero-content"><div class="eyebrow">Rock argentino · Buenos Aires</div><h1>DEJAVU<span>URBE</span></h1><p class="lead">Canciones con identidad, melodía y oficio de banda. Rock hecho en Buenos Aires, para siempre.</p><div class="actions"><a class="btn btn-primary" href="musica/">Escuchar música <span aria-hidden="true">›</span></a><a class="btn" href="banda/">Conocer la historia <span aria-hidden="true">›</span></a></div></div><div class="hero-covers" aria-label="Lanzamientos de DejavuUrbe"><a class="hero-cover hero-cover-main" href="musica/ya-no-puedo-evitarte/"><img src="assets/covers/ya-no-puedo-evitarte.webp" alt="Portada de Ya no puedo evitarte de DejavuUrbe" width="600" height="600" fetchpriority="high"></a><a class="hero-cover hero-cover-left" href="musica/balada-para-un-corto-amor/"><img src="assets/covers/balada-para-un-corto-amor.webp" alt="Portada de Balada para un corto amor de DejavuUrbe" width="600" height="600"></a><a class="hero-cover hero-cover-right" href="musica/despiertame/"><img src="assets/covers/despiertame.webp" alt="Portada de Despiértame de DejavuUrbe" width="600" height="600"></a><a class="hero-scroll" href="#musica" aria-label="Ir al catálogo"><span aria-hidden="true">⌄</span></a></div></div></section>'''
-html, n = re.subn(r'<section class="hero" id="inicio">.*?</section>', hero, html, count=1, flags=re.S)
-if n != 1:
-    raise SystemExit('No se pudo localizar el hero de inicio.')
-index.write_text(html, encoding='utf-8')
-
 styles = css.read_text(encoding='utf-8')
-styles = re.sub(r'\n?/\* hero-cover-montage-v1 \*/.*\Z', '', styles, flags=re.S)
+
+# Mantener el hero actual y reemplazar solo la capa visual del catálogo móvil.
+styles = re.sub(r'\n?/\* music-cards-app-v1 \*/.*?/\* end-music-cards-app-v1 \*/\n?', '\n', styles, flags=re.S)
 styles += r'''
-/* hero-cover-montage-v1 */
-.hero{min-height:calc(100vh - 68px);background-image:linear-gradient(90deg,rgba(0,0,0,.98) 0%,rgba(0,0,0,.93) 34%,rgba(0,0,0,.62) 58%,rgba(0,0,0,.18) 100%),linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.5)),url('../brand/hero-bridge.svg');background-size:cover;background-position:center center}.hero:before{background:radial-gradient(circle at 77% 39%,rgba(255,78,18,.28),transparent 36%)}.hero:after{height:2px;background:linear-gradient(90deg,transparent,var(--fire),transparent)}
-.hero-stage{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.92fr) minmax(430px,1.08fr);align-items:center;gap:54px;min-height:calc(100vh - 68px);padding:72px 0 58px}.hero-stage .hero-content{padding:0;max-width:590px}.hero .eyebrow{font-size:.8rem;letter-spacing:.25em;color:#ff7a2f;margin-bottom:24px}.hero h1{font-family:Impact,"Arial Black",Arial,sans-serif;font-size:clamp(4.5rem,8vw,7.7rem);line-height:.78;margin:0 0 30px;color:#f1f1f1;letter-spacing:.015em;text-shadow:0 4px 24px rgba(0,0,0,.58)}.hero h1 span{display:block;color:#f1f1f1}.hero h1:after{content:"";display:block;width:min(290px,74%);height:4px;background:var(--fire);margin-top:26px}.hero .lead{max-width:470px;margin:0;color:#dedede;font-size:clamp(1.08rem,1.55vw,1.34rem);line-height:1.55}.hero .actions{display:grid;gap:14px;width:min(100%,330px);margin-top:32px}.hero .btn{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:15px 22px;text-transform:uppercase;letter-spacing:.06em;font-size:.92rem;border-color:#5a5a5a}.hero .btn span{font-size:1.65rem;font-weight:400;line-height:1}.hero .btn-primary{background:#ff5a1f;border-color:#ff5a1f;color:#101010}.hero .btn:not(.btn-primary){border-color:#ff5a1f;background:rgba(0,0,0,.42)}
-.hero-covers{position:relative;min-height:650px;perspective:1200px;filter:drop-shadow(0 34px 52px rgba(0,0,0,.58))}.hero-cover{position:absolute;display:block;width:min(68%,430px);aspect-ratio:1;border:1px solid rgba(255,255,255,.18);background:#111;overflow:hidden;box-shadow:0 26px 75px rgba(0,0,0,.65);transition:transform .28s ease,border-color .28s ease,filter .28s ease}.hero-cover img{width:100%;height:100%;object-fit:cover}.hero-cover-main{z-index:4;left:50%;top:14%;transform:translateX(-50%) rotate(.5deg)}.hero-cover-left{z-index:2;left:-4%;top:27%;transform:rotate(-7deg) scale(.82);filter:brightness(.72)}.hero-cover-right{z-index:2;right:-4%;top:29%;transform:rotate(7deg) scale(.82);filter:brightness(.72)}.hero-cover:hover,.hero-cover:focus-visible{z-index:6;border-color:var(--fire);filter:brightness(1)}.hero-cover-main:hover,.hero-cover-main:focus-visible{transform:translateX(-50%) scale(1.025)}.hero-cover-left:hover,.hero-cover-left:focus-visible,.hero-cover-right:hover,.hero-cover-right:focus-visible{transform:rotate(0) scale(.87)}.hero-covers:after{content:"CATÁLOGO 2026";position:absolute;left:50%;bottom:5%;transform:translateX(-50%);z-index:7;font-size:.72rem;font-weight:900;letter-spacing:.28em;color:#ff8a5f;white-space:nowrap}.hero-scroll{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:7;color:#ff7a2f;font-size:2rem;line-height:1}.hero .wrap{max-width:var(--max)}
-@media(max-width:1000px){.hero-stage{grid-template-columns:minmax(0,1fr) 390px;gap:20px}.hero-covers{min-height:500px}.hero-cover{width:300px}.hero-cover-left{left:-2%}.hero-cover-right{right:-2%}}
-@media(max-width:760px){.hero{min-height:auto;background-position:62% center}.hero-stage{display:block;min-height:auto;padding:54px 0 40px}.hero-stage .hero-content{max-width:610px}.hero .eyebrow{margin-bottom:20px}.hero h1{font-size:clamp(4rem,17vw,6rem);margin-bottom:26px}.hero h1:after{margin-top:22px;width:220px}.hero .lead{font-size:1.04rem;max-width:430px}.hero .actions{width:min(100%,355px)}.hero-covers{min-height:410px;margin-top:38px;width:100%}.hero-cover{width:min(62vw,265px)}.hero-cover-main{left:50%;top:0}.hero-cover-left{left:-3%;top:72px;transform:rotate(-7deg) scale(.78)}.hero-cover-right{right:-3%;top:78px;transform:rotate(7deg) scale(.78)}.hero-covers:after{bottom:2%;font-size:.66rem;letter-spacing:.22em}.hero-scroll{bottom:28px}}
-@media(max-width:560px){.catalog-visual{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:88%;max-width:410px;margin-inline:auto}.catalog-visual .track-card{min-width:0}.track-cover{width:100%;height:120px!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center;background:#090909}.track-copy{padding:10px 10px 12px}.catalog-visual .track-card small{font-size:.58rem;letter-spacing:.09em}.catalog-visual .track-card h3{font-size:.9rem;line-height:1.12;margin:.38rem 0 .14rem}.catalog-visual .track-card p{font-size:.69rem;line-height:1.25}.catalog-visual+.actions{margin-top:22px}}
-@media(max-width:480px){.hero-stage{padding-top:44px}.hero h1{font-size:3.95rem}.hero .actions{width:100%}.hero .btn{min-height:62px}.hero-covers{min-height:345px;margin-top:34px}.hero-cover{width:210px}.hero-cover-left{left:-8%;top:64px}.hero-cover-right{right:-8%;top:69px}.hero-covers:after{bottom:0;font-size:.6rem;letter-spacing:.18em}.hero-scroll{display:none}.catalog-visual{width:86%;gap:10px}.track-cover{height:108px!important}}
-@media(max-width:360px){.catalog-visual{width:84%;gap:9px}.track-cover{height:96px!important}.track-copy{padding:9px}.catalog-visual .track-card h3{font-size:.84rem}.catalog-visual .track-card p{font-size:.66rem}}
-@media(prefers-reduced-motion:reduce){.hero-cover{transition:none}}
+/* music-cards-app-v1 */
+@media(max-width:560px){
+  .catalog-visual{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    width:88%;
+    max-width:410px;
+    margin-inline:auto;
+  }
+  .catalog-visual .track-card{
+    min-width:0;
+    padding:6px;
+    overflow:hidden;
+    border-radius:18px;
+    border:1px solid rgba(255,106,42,.5);
+    background:linear-gradient(180deg,#111 0%,#0a0a0a 100%);
+    box-shadow:0 10px 24px rgba(0,0,0,.28);
+  }
+  .catalog-visual .track-card:before{display:none}
+  .catalog-visual .track-card:after{display:none}
+  .catalog-visual .track-cover{
+    width:100%;
+    height:auto!important;
+    aspect-ratio:1/1!important;
+    object-fit:cover!important;
+    object-position:center!important;
+    margin:0;
+    border-radius:13px;
+    background:#090909;
+  }
+  .catalog-visual .track-copy{
+    padding:10px 6px 8px;
+    background:transparent;
+  }
+  .catalog-visual .track-card small{
+    display:block;
+    margin:0 0 7px;
+    font-size:.58rem;
+    line-height:1.1;
+    letter-spacing:.09em;
+    color:#ff7a2f;
+  }
+  .catalog-visual .track-card h3{
+    margin:0 0 4px;
+    font-size:.92rem;
+    line-height:1.12;
+    color:#f5f5f5;
+  }
+  .catalog-visual .track-card p{
+    margin:0;
+    font-size:.69rem;
+    line-height:1.2;
+    color:#aaa;
+  }
+  .catalog-visual+.actions{margin-top:24px}
+}
+@media(max-width:480px){
+  .catalog-visual{width:86%;gap:10px}
+  .catalog-visual .track-card{border-radius:16px;padding:5px}
+  .catalog-visual .track-cover{border-radius:12px}
+  .catalog-visual .track-copy{padding:9px 5px 7px}
+}
+@media(max-width:360px){
+  .catalog-visual{width:84%;gap:9px}
+  .catalog-visual .track-card h3{font-size:.84rem}
+  .catalog-visual .track-card p{font-size:.65rem}
+}
+/* end-music-cards-app-v1 */
 '''
 css.write_text(styles, encoding='utf-8')
-print('OK: catálogo móvil con portadas bajas, completas y legibles.')
+print('OK: tarjetas musicales móviles redondeadas, cuadradas y con metadata visible.')
