@@ -1,6 +1,5 @@
 /* Ajuste visual exclusivo para escritorio. Mantiene intacta la experiencia móvil. */
 @media (min-width:1001px){
-  /* Densidad general de escritorio: pensada para verse cómoda al 100% de zoom. */
   .wrap{width:min(calc(100% - 150px),1040px)}
   .nav{min-height:60px}
   .brand{font-size:.96rem}
@@ -27,20 +26,26 @@
   .actions{margin-top:18px}
   .btn{padding:8px 13px;font-size:.86rem}
 
-  /* Catálogo: conservar cinco columnas y bajar altura total para que las diez canciones entren al 100%. */
-  .catalog-visual{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px 12px}
+  /* Catálogo: reducción física real del bloque, no sólo del texto. */
+  .catalog-visual{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:9px 11px;
+    width:86%;
+    margin-left:auto;
+    margin-right:auto;
+  }
   .catalog-visual .track-card{
     max-width:none;
     border:0;
-    border-radius:28px;
+    border-radius:26px;
     overflow:hidden;
     background:#0e0e0e;
     box-shadow:0 0 0 2px #604238,0 8px 22px rgba(0,0,0,.22);
   }
   .catalog-visual .track-card:before{
     height:4px;
-    left:13px;
-    right:13px;
+    left:12px;
+    right:12px;
     top:0;
     border-radius:0 0 8px 8px;
   }
@@ -53,13 +58,12 @@
     background:#0b0b0b;
     border-radius:0;
   }
-  .track-copy{padding:8px 10px 9px}
-  .track-card h3{font-size:.9rem;margin:.3rem 0 .12rem;line-height:1.08}
-  .track-card p{font-size:.66rem;line-height:1.15;margin:.08rem 0}
-  .track-card small{font-size:.59rem;line-height:1.1}
-  .section-note{margin-top:16px;font-size:.78rem}
+  .track-copy{padding:7px 9px 8px}
+  .track-card h3{font-size:.82rem;margin:.27rem 0 .1rem;line-height:1.06}
+  .track-card p{font-size:.61rem;line-height:1.12;margin:.06rem 0}
+  .track-card small{font-size:.55rem;line-height:1.08}
+  .section-note{width:86%;margin:14px auto 0;font-size:.76rem}
 
-  /* Portada principal: misma composición, algo más compacta. */
   .hero-stage{gap:38px;padding:46px 0 38px;min-height:calc(100vh - 60px)}
   .hero-stage .hero-content{max-width:500px}
   .hero h1{font-size:clamp(3.4rem,5.5vw,5.5rem)}
