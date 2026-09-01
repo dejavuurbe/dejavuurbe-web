@@ -5,6 +5,7 @@
   "click_tracking": {
     "method": "internal_redirect_pages",
     "base_path": "salir",
+    "initialized": true,
     "reason": "Cloudflare Web Analytics no admite eventos personalizados; las rutas internas permiten medir clics salientes como páginas vistas sin alterar los enlaces semánticos de Schema.org."
   }
 }
