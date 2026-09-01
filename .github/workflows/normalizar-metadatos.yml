@@ -1,0 +1,36 @@
+name: Normalizar metadatos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/normalizar_metadatos.py'
+
+permissions:
+  contents: write
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar metadatos
+        run: python scripts/normalizar_metadatos.py
+      - name: Verificar portada y páginas
+        run: |
+          grep -q 'og:image' index.html
+          grep -q '#dejavuurbe' index.html
+          grep -q 'rel="icon"' banda/index.html
+          grep -q 'Escuchar y conocer' musica/index.html
+      - name: Publicar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add '*.html' '*/index.html' 'musica/*/index.html'
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Normalizar metadatos y entidad principal"
+            git push
+          fi
