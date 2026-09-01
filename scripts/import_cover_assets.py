@@ -2,8 +2,9 @@
 """Reconstruye las portadas WebP desde fragmentos base64 temporales.
 
 Los fragmentos se guardan como texto para permitir una importación controlada desde
-herramientas que no adjuntan binarios directamente al repositorio. Tras extraer las
-10 portadas, elimina los fragmentos para que no queden publicados.
+herramientas que no adjuntan binarios directamente al repositorio. Cada fragmento
+puede ser una unidad base64 independiente; se decodifican por separado y luego se
+rearma el ZIP binario. Tras extraer las 10 portadas, elimina los fragmentos.
 """
 from pathlib import Path
 from io import BytesIO
@@ -30,23 +31,28 @@ parts = sorted(IMPORT_DIR.glob("covers.b64.*"))
 if len(parts) != 5:
     raise SystemExit(f"Se esperaban 5 fragmentos y se encontraron {len(parts)}")
 
-payload = "".join(p.read_text(encoding="utf-8").strip() for p in parts)
-try:
-    archive = base64.b64decode(payload, validate=True)
-except Exception as exc:
-    raise SystemExit(f"Base64 inválido: {exc}")
+chunks = []
+for part in parts:
+    payload = part.read_text(encoding="utf-8").strip()
+    try:
+        chunks.append(base64.b64decode(payload, validate=True))
+    except Exception as exc:
+        raise SystemExit(f"Base64 inválido en {part.name}: {exc}")
+archive = b"".join(chunks)
 
 COVERS_DIR.mkdir(parents=True, exist_ok=True)
-with zipfile.ZipFile(BytesIO(archive)) as zf:
-    names = {Path(name).name for name in zf.namelist() if not name.endswith("/")}
-    if names != EXPECTED:
-        raise SystemExit(f"Contenido inesperado del ZIP: {sorted(names)}")
-    for info in zf.infolist():
-        if info.is_dir():
-            continue
-        name = Path(info.filename).name
-        target = COVERS_DIR / name
-        target.write_bytes(zf.read(info))
+try:
+    with zipfile.ZipFile(BytesIO(archive)) as zf:
+        names = {Path(name).name for name in zf.namelist() if not name.endswith("/")}
+        if names != EXPECTED:
+            raise SystemExit(f"Contenido inesperado del ZIP: {sorted(names)}")
+        for info in zf.infolist():
+            if info.is_dir():
+                continue
+            name = Path(info.filename).name
+            (COVERS_DIR / name).write_bytes(zf.read(info))
+except zipfile.BadZipFile as exc:
+    raise SystemExit(f"No se pudo reconstruir el ZIP de portadas: {exc}")
 
 for path in parts:
     path.unlink()
