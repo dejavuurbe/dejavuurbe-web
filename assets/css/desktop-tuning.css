@@ -1,40 +1,46 @@
 /* Ajuste visual exclusivo para escritorio. Mantiene intacta la experiencia móvil. */
 @media (min-width:1001px){
-  /* Escala general: ~15% más compacta para uso cómodo al 100% de zoom */
-  section{padding:78px 0}
-  .song-hero{padding:86px 0 58px}
-  .section-head{margin-bottom:32px;gap:30px}
-  .section-head h2{font-size:clamp(1.75rem,4.25vw,2.95rem)}
-  .intro-grid{gap:60px}
-  .intro-grid h2{font-size:clamp(1.75rem,3.4vw,2.65rem)}
-  .intro-grid p{font-size:.98rem}
-  .lead{font-size:clamp(.98rem,1.65vw,1.12rem)}
-  .song-hero h1{font-size:clamp(2.4rem,5.9vw,4.8rem)}
-  .prose h2{font-size:clamp(1.75rem,3.4vw,2.8rem)}
-  .prose p{font-size:.98rem}
-  .feature{padding:25px}
-  .feature .num{font-size:2.55rem}
-  .feature h3{font-size:1.28rem}
-  .feature p,.section-head p{font-size:.94rem}
-  .links-grid{gap:10px}
-  .official-link{padding:16px}
-  .actions{margin-top:25px}
-  .btn{padding:10px 16px}
+  /* Densidad general de escritorio: pensada para verse cómoda al 100% de zoom. */
+  .wrap{width:min(calc(100% - 150px),1040px)}
+  .nav{min-height:60px}
+  .brand{font-size:.96rem}
+  .nav-links{font-size:.8rem;gap:19px}
 
-  /* Catálogo: 10 temas = 2 filas de 5. El borde exterior se dibuja por encima del contenido para que el radio sea visible. */
-  .catalog-visual{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+  section{padding:62px 0}
+  .song-hero{padding:66px 0 46px}
+  .section-head{margin-bottom:24px;gap:25px}
+  .section-head h2{font-size:clamp(1.55rem,3.5vw,2.55rem)}
+  .section-head p{font-size:.86rem}
+  .intro-grid{gap:50px}
+  .intro-grid h2{font-size:clamp(1.55rem,2.9vw,2.3rem)}
+  .intro-grid p{font-size:.9rem}
+  .lead{font-size:clamp(.9rem,1.35vw,1.02rem)}
+  .song-hero h1{font-size:clamp(2.05rem,4.8vw,4.05rem)}
+  .prose h2{font-size:clamp(1.55rem,2.9vw,2.4rem)}
+  .prose p{font-size:.9rem}
+  .feature{padding:21px}
+  .feature .num{font-size:2.2rem}
+  .feature h3{font-size:1.12rem}
+  .feature p{font-size:.86rem}
+  .links-grid{gap:9px}
+  .official-link{padding:14px}
+  .actions{margin-top:20px}
+  .btn{padding:9px 14px;font-size:.9rem}
+
+  /* Catálogo: 10 temas = 2 filas de 5, completo dentro de una pantalla de escritorio común. */
+  .catalog-visual{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
   .catalog-visual .track-card{
     max-width:none;
     border:0;
     border-radius:28px;
     overflow:hidden;
     background:#0e0e0e;
-    box-shadow:0 0 0 2px #604238,0 10px 28px rgba(0,0,0,.24);
+    box-shadow:0 0 0 2px #604238,0 8px 22px rgba(0,0,0,.22);
   }
   .catalog-visual .track-card:before{
-    height:5px;
-    left:14px;
-    right:14px;
+    height:4px;
+    left:13px;
+    right:13px;
     top:0;
     border-radius:0 0 8px 8px;
   }
@@ -47,16 +53,19 @@
     background:#0b0b0b;
     border-radius:0;
   }
-  .track-copy{padding:14px 14px 18px;border-radius:0}
-  .track-card h3{font-size:1.08rem}
-  .track-card p{font-size:.78rem}
-  .track-card small{font-size:.7rem}
+  .track-copy{padding:10px 11px 12px;border-radius:0}
+  .track-card h3{font-size:.94rem;margin:.42rem 0 .18rem}
+  .track-card p{font-size:.7rem}
+  .track-card small{font-size:.62rem}
+  .section-note{margin-top:20px;font-size:.82rem}
 
-  /* Mantener la portada principal con presencia; solo compactar levemente texto y controles. */
-  .hero-stage{gap:46px;padding:62px 0 50px}
-  .hero-stage .hero-content{max-width:560px}
-  .hero h1{font-size:clamp(4rem,6.8vw,6.55rem)}
-  .hero .lead{font-size:clamp(1rem,1.3vw,1.16rem)}
-  .hero .actions{margin-top:27px;gap:12px}
-  .hero .btn{min-height:55px;padding:13px 19px;font-size:.84rem}
+  /* Portada principal: misma composición, algo más compacta. */
+  .hero-stage{gap:38px;padding:50px 0 42px;min-height:calc(100vh - 60px)}
+  .hero-stage .hero-content{max-width:500px}
+  .hero h1{font-size:clamp(3.5rem,5.7vw,5.7rem)}
+  .hero .lead{font-size:clamp(.94rem,1.12vw,1.05rem)}
+  .hero .actions{margin-top:22px;gap:10px}
+  .hero .btn{min-height:48px;padding:11px 16px;font-size:.78rem}
+  .hero-covers{min-height:560px}
+  .hero-cover{width:min(64%,390px)}
 }
