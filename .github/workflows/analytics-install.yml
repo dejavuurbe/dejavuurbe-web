@@ -1,0 +1,31 @@
+name: Instalar Analytics
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+      - name: Inyectar Cloudflare Web Analytics
+        run: python scripts/inject_cloudflare_analytics.py
+      - name: Guardar cambios si fueran necesarios
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add '*.html' '**/*.html'
+            git commit -m "Instalar Cloudflare Web Analytics en todas las páginas"
+            git push
+          else
+            echo "Analytics ya estaba instalado."
+          fi
