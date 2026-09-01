@@ -1,12 +1,6 @@
-name: Actualizar páginas de canciones
+name: Crear páginas de canciones faltantes
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data/canciones.json'
-      - 'data/site.json'
-      - 'scripts/generar_paginas_canciones.py'
   workflow_dispatch:
 
 permissions:
@@ -17,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generar páginas
+      - name: Crear solo páginas faltantes
         run: python scripts/generar_paginas_canciones.py
       - name: Guardar cambios
         run: |
@@ -25,8 +19,8 @@ jobs:
           git config user.email "dejavuurbe@gmail.com"
           git add musica/*/index.html
           if git diff --cached --quiet; then
-            echo "Sin cambios"
+            echo "Sin páginas nuevas"
           else
-            git commit -m "Actualizar páginas de canciones desde catálogo"
+            git commit -m "Crear páginas faltantes desde catálogo"
             git push
           fi
