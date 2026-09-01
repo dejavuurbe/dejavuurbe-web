@@ -1,0 +1,31 @@
+name: Limpiar textos publicos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/limpiar_textos_publicos.py'
+      - '.github/workflows/limpiar-textos-publicos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ajustar textos visibles
+        run: python scripts/limpiar_textos_publicos.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add assets/css/desktop-tuning.css musica/index.html musica/*/index.html videos/index.html enlaces/index.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Pulir textos publicos y restaurar hover"
+            git push
+          fi
