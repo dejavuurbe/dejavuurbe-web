@@ -21,6 +21,9 @@ jobs:
           test -f sitemap.xml
           test -f robots.txt
           test -f data/canciones.json
+          test -f data/site.json
+          test -f data/identity.json
+          test -f llms.txt
           test -f banda/index.html
           test -f musica/index.html
           test -f videos/index.html
@@ -28,10 +31,21 @@ jobs:
           test -f enlaces/index.html
           test -f contacto/index.html
           test -f site.webmanifest
-      - name: Verificar estructura y metadatos
+      - name: Verificar estructura y dominio configurado
         run: |
           grep -q 'MusicGroup' index.html
-          grep -q 'dejavuurbe.com.ar' sitemap.xml
           grep -R -q 'MusicRecording' musica
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cfg=json.loads(Path('data/site.json').read_text())
+          base=cfg['public_base'].rstrip('/')
+          for name in ['index.html','sitemap.xml','robots.txt']:
+              text=Path(name).read_text()
+              assert base in text, f'{base} no aparece en {name}'
+          ident=json.loads(Path('data/identity.json').read_text())
+          assert ident['name']=='DejavuUrbe'
+          assert len(json.loads(Path('data/canciones.json').read_text()))==10
+          PY
       - name: Verificar sincronización del catálogo
         run: python scripts/verificar_catalogo.py
