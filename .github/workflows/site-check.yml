@@ -18,6 +18,12 @@ jobs:
           test -f sitemap.xml
           test -f robots.txt
           test -f data/canciones.json
+          test -f banda/index.html
+          test -f musica/index.html
+          test -f videos/index.html
+          test -f prensa/index.html
+          test -f enlaces/index.html
+          test -f contacto/index.html
       - name: Verificar páginas del catálogo
         run: |
           for p in \
