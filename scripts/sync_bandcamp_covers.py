@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Sincronización de arte oficial para uso visual y semántico del sitio.
 from pathlib import Path
 from io import BytesIO
 from urllib.request import Request, urlopen
