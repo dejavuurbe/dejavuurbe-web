@@ -1,0 +1,40 @@
+name: Site check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar archivos esenciales
+        run: |
+          test -f index.html
+          test -f assets/css/styles.css
+          test -f sitemap.xml
+          test -f robots.txt
+          test -f data/canciones.json
+      - name: Verificar páginas del catálogo
+        run: |
+          for p in \
+            ya-no-puedo-evitarte \
+            cada-noche \
+            balada-para-un-corto-amor \
+            el-fantasma \
+            brilla \
+            dos-extranos \
+            luna \
+            triste-cancion \
+            despiertame \
+            luna-acustico; do
+              test -f "musica/$p/index.html"
+          done
+      - name: Verificar metadatos mínimos
+        run: |
+          grep -q 'MusicGroup' index.html
+          grep -q 'dejavuurbe.com.ar' sitemap.xml
+          grep -R -q 'MusicRecording' musica
