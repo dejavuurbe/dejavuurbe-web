@@ -5,10 +5,10 @@ No modifica archivos. Está pensado para GitHub Actions y mantenimiento automati
 """
 from pathlib import Path
 import json
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "canciones.json"
+SITE = ROOT / "data" / "site.json"
 
 
 def fail(msg: str) -> None:
@@ -19,8 +19,10 @@ def fail(msg: str) -> None:
 def main() -> None:
     try:
         songs = json.loads(DATA.read_text(encoding="utf-8"))
+        site = json.loads(SITE.read_text(encoding="utf-8"))
+        base = site["public_base"].rstrip("/")
     except Exception as exc:
-        fail(f"No se pudo leer {DATA}: {exc}")
+        fail(f"No se pudieron leer los datos del sitio: {exc}")
 
     if len(songs) != 10:
         fail(f"Se esperaban 10 canciones y hay {len(songs)}")
@@ -28,7 +30,6 @@ def main() -> None:
     seen_slugs = set()
     seen_isrc = set()
     seen_upc = set()
-
     required = {"titulo", "slug", "fecha", "upc", "isrc", "bandcamp", "musicbrainz_release", "musicbrainz_recording"}
 
     for song in songs:
@@ -52,13 +53,10 @@ def main() -> None:
             fail(f"Falta la página {page.relative_to(ROOT)}")
         text = page.read_text(encoding="utf-8")
         checks = [
-            song["titulo"],
-            song["isrc"],
-            song["upc"],
-            f"https://dejavuurbe.com.ar/musica/{slug}/",
+            song["titulo"], song["isrc"], song["upc"],
+            f"{base}/musica/{slug}/",
             '"@type":"MusicRecording"',
-            song["bandcamp"],
-            song["musicbrainz_recording"],
+            song["bandcamp"], song["musicbrainz_recording"],
         ]
         for value in checks:
             if value not in text:
@@ -66,11 +64,11 @@ def main() -> None:
 
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     for song in songs:
-        url = f"https://dejavuurbe.com.ar/musica/{song['slug']}/"
+        url = f"{base}/musica/{song['slug']}/"
         if url not in sitemap:
             fail(f"El sitemap no contiene {url}")
 
-    print("OK: catálogo, páginas individuales y sitemap están sincronizados.")
+    print(f"OK: catálogo, páginas individuales y sitemap sincronizados con {base}.")
 
 
 if __name__ == "__main__":
