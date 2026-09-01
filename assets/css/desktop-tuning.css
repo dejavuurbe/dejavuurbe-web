@@ -49,16 +49,15 @@
   }
   .catalog-visual .track-card:hover,
   .catalog-visual .track-card:focus-visible{
-    transform:translateY(-16px) scale(1.18);
-    box-shadow:0 0 0 3px #ff6a32,0 34px 70px rgba(0,0,0,.72),0 0 42px rgba(255,90,31,.28);
-    filter:brightness(1.13) saturate(1.08);
-    z-index:20;
+    transform:translateY(-20px) scale(1.30);
+    box-shadow:0 0 0 3px #ff6a32,0 40px 84px rgba(0,0,0,.76),0 0 48px rgba(255,90,31,.32);
+    filter:brightness(1.15) saturate(1.10);
+    z-index:30;
   }
-  /* Al destacar una tarjeta, las demás retroceden apenas para reforzar la sensación de profundidad. */
   .catalog-visual:has(.track-card:hover) .track-card:not(:hover){
-    transform:scale(.975);
-    filter:brightness(.82);
-    opacity:.9;
+    transform:scale(.965);
+    filter:brightness(.78);
+    opacity:.86;
   }
   .catalog-visual .track-card:before{
     height:4px;
