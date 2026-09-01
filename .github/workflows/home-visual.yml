@@ -1,0 +1,37 @@
+name: Actualizar portada visual
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enhance_home_visual.py'
+
+permissions:
+  contents: write
+
+jobs:
+  home:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar composición visual
+        run: python scripts/enhance_home_visual.py
+      - name: Verificar portada
+        run: |
+          grep -q 'hero-covers' index.html
+          grep -q 'hero-cover-montage-v1' assets/css/styles.css
+          test -f assets/covers/despiertame.webp
+          test -f assets/covers/balada-para-un-corto-amor.webp
+          test -f assets/covers/luna.webp
+      - name: Publicar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add index.html assets/css/styles.css
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Integrar portadas oficiales en el hero"
+            git push
+          fi
