@@ -1,0 +1,31 @@
+name: Enlaces directos de escucha
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/enlaces_escucha_directos.py'
+      - '.github/workflows/enlaces-escucha-directos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Actualizar enlaces
+        run: python scripts/enlaces_escucha_directos.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add musica/*/index.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Enlaces directos de escucha"
+            git push
+          fi
