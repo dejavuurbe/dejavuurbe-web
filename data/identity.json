@@ -1,0 +1,21 @@
+{
+  "name": "DejavuUrbe",
+  "type": "MusicGroup",
+  "location": "Buenos Aires, Argentina",
+  "genre": "Rock",
+  "public_base": "https://dejavuurbe.github.io/dejavuurbe-web",
+  "future_domain": "https://dejavuurbe.com.ar",
+  "musicbrainz_artist": "501f158f-7f8a-4ea5-92c2-a7993edc0bc7",
+  "musicbrainz_label": "843bb345-1ed9-4831-8f41-f1ee39a7b82e",
+  "official_profiles": {
+    "youtube": "https://www.youtube.com/@DejavuUrbe",
+    "bandcamp": "https://dejavuurbe.bandcamp.com/",
+    "instagram": "https://www.instagram.com/dejavuurbe/",
+    "facebook": "https://www.facebook.com/profile.php?id=61578015827932",
+    "discogs": "https://www.discogs.com/label/4655592-DejavuUrbe",
+    "vowave": "https://www.vowave.com/DejavuUrbe",
+    "songstats": "https://songstats.com/artist/87i3aecd/dejavuurbe"
+  },
+  "phonogram_notice": "℗ 2026 DejavuUrbe",
+  "data_note": "La titularidad del fonograma y la autoría de la composición son campos conceptualmente distintos y no deben inferirse uno del otro."
+}
