@@ -33,6 +33,7 @@
     width:86%;
     margin-left:auto;
     margin-right:auto;
+    perspective:1100px;
   }
   .catalog-visual .track-card{
     max-width:none;
@@ -41,6 +42,17 @@
     overflow:hidden;
     background:#0e0e0e;
     box-shadow:0 0 0 2px #604238,0 8px 22px rgba(0,0,0,.22);
+    transform:translateZ(0) scale(1);
+    transform-origin:center center;
+    transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
+    will-change:transform;
+  }
+  .catalog-visual .track-card:hover,
+  .catalog-visual .track-card:focus-visible{
+    transform:translateY(-6px) translateZ(28px) scale(1.045);
+    box-shadow:0 0 0 2px #9a5b45,0 18px 38px rgba(0,0,0,.48);
+    filter:brightness(1.04);
+    z-index:5;
   }
   .catalog-visual .track-card:before{
     height:4px;
@@ -72,4 +84,9 @@
   .hero .btn{min-height:46px;padding:10px 15px;font-size:.77rem}
   .hero-covers{min-height:530px}
   .hero-cover{width:min(62%,375px)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .catalog-visual .track-card{transition:none!important}
+  .catalog-visual .track-card:hover,.catalog-visual .track-card:focus-visible{transform:none!important}
 }
