@@ -30,7 +30,7 @@ def main() -> None:
     seen_slugs = set()
     seen_isrc = set()
     seen_upc = set()
-    required = {"titulo", "slug", "fecha", "upc", "isrc", "bandcamp", "musicbrainz_release", "musicbrainz_recording"}
+    required = {"titulo", "slug", "fecha", "upc", "isrc", "bandcamp", "musicbrainz_release", "musicbrainz_recording", "cover_file", "cover_alt"}
 
     for song in songs:
         missing = required - set(song)
@@ -44,6 +44,8 @@ def main() -> None:
             fail(f"ISRC duplicado: {song['isrc']}")
         if song["upc"] in seen_upc:
             fail(f"UPC duplicado: {song['upc']}")
+        if not song["cover_file"].endswith(".webp"):
+            fail(f"La portada de {song['titulo']} debe mapear a WebP")
         seen_slugs.add(slug)
         seen_isrc.add(song["isrc"])
         seen_upc.add(song["upc"])
@@ -68,7 +70,7 @@ def main() -> None:
         if url not in sitemap:
             fail(f"El sitemap no contiene {url}")
 
-    print(f"OK: catálogo, páginas individuales y sitemap sincronizados con {base}.")
+    print(f"OK: catálogo, páginas, sitemap y mapeo visual sincronizados con {base}.")
 
 
 if __name__ == "__main__":
