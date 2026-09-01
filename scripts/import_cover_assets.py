@@ -1,44 +1,40 @@
 #!/usr/bin/env python3
 """Reconstruye las portadas WebP desde fragmentos base64 temporales.
 
-Los fragmentos se guardan como texto para permitir una importación controlada desde
-herramientas que no adjuntan binarios directamente al repositorio. Cada fragmento
-puede ser una unidad base64 independiente; se decodifican por separado y luego se
-rearma el ZIP binario. Tras extraer las 10 portadas, elimina los fragmentos.
+Tolera cortes arbitrarios entre fragmentos: concatena el flujo, elimina padding
+intermedio y vuelve a aplicar padding únicamente al final antes de decodificar.
+Tras extraer las 10 portadas, elimina los fragmentos temporales.
 """
 from pathlib import Path
 from io import BytesIO
 import base64
+import re
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 IMPORT_DIR = ROOT / "assets" / "import"
 COVERS_DIR = ROOT / "assets" / "covers"
 EXPECTED = {
-    "ya-no-puedo-evitarte.webp",
-    "cada-noche.webp",
-    "balada-para-un-corto-amor.webp",
-    "dos-extranos.webp",
-    "brilla.webp",
-    "el-fantasma.webp",
-    "triste-cancion.webp",
-    "luna.webp",
-    "despiertame.webp",
-    "luna-acustico.webp",
+    "ya-no-puedo-evitarte.webp", "cada-noche.webp",
+    "balada-para-un-corto-amor.webp", "dos-extranos.webp",
+    "brilla.webp", "el-fantasma.webp", "triste-cancion.webp",
+    "luna.webp", "despiertame.webp", "luna-acustico.webp",
 }
 
 parts = sorted(IMPORT_DIR.glob("covers.b64.*"))
 if len(parts) != 5:
     raise SystemExit(f"Se esperaban 5 fragmentos y se encontraron {len(parts)}")
 
-chunks = []
-for part in parts:
-    payload = part.read_text(encoding="utf-8").strip()
-    try:
-        chunks.append(base64.b64decode(payload, validate=True))
-    except Exception as exc:
-        raise SystemExit(f"Base64 inválido en {part.name}: {exc}")
-archive = b"".join(chunks)
+raw = "".join(p.read_text(encoding="utf-8") for p in parts)
+raw = re.sub(r"\s+", "", raw)
+# El material temporal pudo quedar cortado en unidades no múltiplo de cuatro.
+# Se retira padding intermedio y se reconstruye un único flujo base64.
+raw = raw.replace("=", "")
+raw += "=" * ((4 - len(raw) % 4) % 4)
+try:
+    archive = base64.b64decode(raw, validate=True)
+except Exception as exc:
+    raise SystemExit(f"No se pudo reconstruir el flujo base64: {exc}")
 
 COVERS_DIR.mkdir(parents=True, exist_ok=True)
 try:
@@ -47,10 +43,8 @@ try:
         if names != EXPECTED:
             raise SystemExit(f"Contenido inesperado del ZIP: {sorted(names)}")
         for info in zf.infolist():
-            if info.is_dir():
-                continue
-            name = Path(info.filename).name
-            (COVERS_DIR / name).write_bytes(zf.read(info))
+            if not info.is_dir():
+                (COVERS_DIR / Path(info.filename).name).write_bytes(zf.read(info))
 except zipfile.BadZipFile as exc:
     raise SystemExit(f"No se pudo reconstruir el ZIP de portadas: {exc}")
 
