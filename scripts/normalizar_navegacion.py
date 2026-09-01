@@ -30,3 +30,5 @@ for path in pages:
         print(f'OK {rel}')
     else:
         print(f'SIN HEADER {rel}')
+
+# Mantener una única navegación coherente en todas las páginas públicas.
