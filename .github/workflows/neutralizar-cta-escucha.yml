@@ -1,0 +1,31 @@
+name: Neutralizar CTA de escucha
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/neutralizar_cta_escucha.py'
+      - '.github/workflows/neutralizar-cta-escucha.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cambiar CTA
+        run: python scripts/neutralizar_cta_escucha.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add musica/*/index.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Neutraliza CTA de escucha en canciones"
+            git push
+          fi
