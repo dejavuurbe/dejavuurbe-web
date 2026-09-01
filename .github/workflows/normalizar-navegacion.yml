@@ -1,0 +1,35 @@
+name: Normalizar navegación
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/normalizar_navegacion.py'
+
+permissions:
+  contents: write
+
+jobs:
+  nav:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar navegación global
+        run: python scripts/normalizar_navegacion.py
+      - name: Verificar navegación
+        run: |
+          grep -q 'prensa/' banda/index.html
+          grep -q 'contacto/' musica/ya-no-puedo-evitarte/index.html
+          grep -q 'aria-label="Navegación principal"' videos/index.html
+      - name: Publicar cambios
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add '*.html' '*/index.html' 'musica/*/index.html'
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Unificar navegación en todo el sitio"
+            git push
+          fi
