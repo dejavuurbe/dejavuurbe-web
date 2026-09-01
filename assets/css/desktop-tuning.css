@@ -44,15 +44,21 @@
     box-shadow:0 0 0 2px #604238,0 8px 22px rgba(0,0,0,.22);
     transform:translateY(0) scale(1);
     transform-origin:center center;
-    transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,filter .2s ease;
+    transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease,filter .18s ease,opacity .18s ease;
     will-change:transform;
   }
   .catalog-visual .track-card:hover,
   .catalog-visual .track-card:focus-visible{
-    transform:translateY(-12px) scale(1.10);
-    box-shadow:0 0 0 2px #d87950,0 28px 58px rgba(0,0,0,.62),0 0 34px rgba(255,90,31,.18);
-    filter:brightness(1.10) saturate(1.05);
-    z-index:10;
+    transform:translateY(-16px) scale(1.18);
+    box-shadow:0 0 0 3px #ff6a32,0 34px 70px rgba(0,0,0,.72),0 0 42px rgba(255,90,31,.28);
+    filter:brightness(1.13) saturate(1.08);
+    z-index:20;
+  }
+  /* Al destacar una tarjeta, las demás retroceden apenas para reforzar la sensación de profundidad. */
+  .catalog-visual:has(.track-card:hover) .track-card:not(:hover){
+    transform:scale(.975);
+    filter:brightness(.82);
+    opacity:.9;
   }
   .catalog-visual .track-card:before{
     height:4px;
