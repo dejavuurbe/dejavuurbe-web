@@ -91,6 +91,13 @@
   .hero-cover{width:min(62%,375px)}
 }
 
+/* Interacción consistente: los botones de borde claro pasan a naranja;
+   los botones naranjas sólidos responden con un borde fino blanco. */
+.btn-primary:hover,
+.btn-primary:focus-visible{
+  border-color:#fff;
+}
+
 @media(prefers-reduced-motion:reduce){
   .catalog-visual .track-card{transition:none!important}
   .catalog-visual .track-card:hover,.catalog-visual .track-card:focus-visible{transform:none!important}
