@@ -1,0 +1,47 @@
+name: Salud del sitio
+
+on:
+  schedule:
+    - cron: '17 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar sitio público provisional
+        id: check
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://dejavuurbe.github.io/dejavuurbe-web/"
+          tmp="$(mktemp)"
+          code="$(curl -L --silent --show-error --max-time 30 -o "$tmp" -w '%{http_code}' "$URL")"
+          echo "HTTP $code"
+          test "$code" = "200"
+          grep -qi 'DEJAVU' "$tmp"
+          grep -qi 'Rock argentino' "$tmp"
+          grep -qi 'musica/' "$tmp"
+
+      - name: Cerrar avisos previos si el sitio está sano
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --repo "$GITHUB_REPOSITORY" --state open --label site-health --json number --jq '.[].number' 2>/dev/null || true); do
+            gh issue close "$n" --repo "$GITHUB_REPOSITORY" --comment "La comprobación automática volvió a ser correcta."
+          done
+
+      - name: Crear aviso si falla la comprobación
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search 'Fallo automático del sitio in:title' --json number --jq '.[0].number // empty' 2>/dev/null || true)
+          if [ -z "$existing" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "Fallo automático del sitio" --body "La revisión programada de GitHub Actions detectó que la web provisional no respondió correctamente o perdió contenido esencial. Revisar el workflow **Salud del sitio**." --label site-health 2>/dev/null || gh issue create --repo "$GITHUB_REPOSITORY" --title "Fallo automático del sitio" --body "La revisión programada de GitHub Actions detectó que la web provisional no respondió correctamente o perdió contenido esencial. Revisar el workflow **Salud del sitio**."
+          fi
