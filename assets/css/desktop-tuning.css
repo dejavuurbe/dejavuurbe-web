@@ -91,6 +91,28 @@
   .hero-cover{width:min(62%,375px)}
 }
 
+/* Iconos discretos para reconocer cada servicio sin alterar la grilla. */
+.official-link{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.service-icon{
+  width:20px;
+  height:20px;
+  flex:0 0 20px;
+  display:block;
+  fill:currentColor;
+  color:#f2f2f2;
+  opacity:.9;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.official-link:hover .service-icon,
+.official-link:focus-visible .service-icon{
+  opacity:1;
+  transform:scale(1.06);
+}
+
 /* Interacciones consistentes en todo el sitio. */
 .btn-primary:hover,
 .btn-primary:focus-visible{
@@ -137,4 +159,6 @@
 @media(prefers-reduced-motion:reduce){
   .catalog-visual .track-card{transition:none!important}
   .catalog-visual .track-card:hover,.catalog-visual .track-card:focus-visible{transform:none!important}
+  .service-icon{transition:none!important}
+  .official-link:hover .service-icon,.official-link:focus-visible .service-icon{transform:none!important}
 }
