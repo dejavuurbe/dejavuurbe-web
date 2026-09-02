@@ -1,5 +1,5 @@
 {
-  "public_base": "https://dejavuurbe.github.io/dejavuurbe-web",
+  "public_base": "https://dejavuurbe.com.ar",
   "future_domain": "https://dejavuurbe.com.ar",
-  "mode": "provisional"
+  "mode": "production"
 }
