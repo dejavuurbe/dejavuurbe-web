@@ -91,11 +91,47 @@
   .hero-cover{width:min(62%,375px)}
 }
 
-/* Interacción consistente: los botones de borde claro pasan a naranja;
-   los botones naranjas sólidos responden con un borde fino blanco. */
+/* Interacciones consistentes en todo el sitio. */
 .btn-primary:hover,
 .btn-primary:focus-visible{
   border-color:#fff;
+}
+
+.btn:not(.btn-primary):hover,
+.btn:not(.btn-primary):focus-visible,
+.feature:hover,
+.feature:focus-visible,
+.official-link:hover,
+.official-link:focus-visible,
+.video-panel:hover,
+.video-panel:focus-visible,
+.hero-cover:hover,
+.hero-cover:focus-visible{
+  border-color:var(--fire)!important;
+}
+
+.feature:focus-visible,
+.official-link:focus-visible,
+.video-panel:focus-visible,
+.hero-cover:focus-visible,
+.breadcrumb a:focus-visible,
+.song-nav a:focus-visible,
+.hero-scroll:focus-visible{
+  outline:2px solid var(--fire);
+  outline-offset:4px;
+}
+
+.breadcrumb a,
+.song-nav a,
+.hero-scroll{
+  transition:color .18s ease,border-color .18s ease,opacity .18s ease;
+}
+
+.breadcrumb a:hover,
+.song-nav a:hover,
+.breadcrumb a:focus-visible,
+.song-nav a:focus-visible{
+  color:var(--fire);
 }
 
 @media(prefers-reduced-motion:reduce){
