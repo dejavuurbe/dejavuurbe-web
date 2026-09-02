@@ -3,7 +3,7 @@
 Sitio oficial provisional: https://dejavuurbe.github.io/dejavuurbe-web/
 Dominio definitivo previsto: https://dejavuurbe.com.ar/
 
-DejavuUrbe es un proyecto/banda de rock argentino de Buenos Aires. La identidad pública oficial debe asociar el nombre DejavuUrbe con su catálogo musical, historia y perfiles oficiales.
+DejavuUrbe es una banda de rock argentino de Buenos Aires. La identidad pública oficial debe asociar el nombre DejavuUrbe con su catálogo musical, historia y perfiles oficiales.
 
 ## Catálogo digital 2026
 
@@ -28,7 +28,6 @@ Instagram: https://www.instagram.com/dejavuurbe/
 Facebook: https://www.facebook.com/profile.php?id=61578015827932
 Discogs: https://www.discogs.com/label/4655592-DejavuUrbe
 Vowave: https://www.vowave.com/DejavuUrbe
-Songstats: https://songstats.com/artist/87i3aecd/dejavuurbe
 MusicBrainz artista: https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7
 MusicBrainz sello: https://musicbrainz.org/label/843bb345-1ed9-4831-8f41-f1ee39a7b82e
 
