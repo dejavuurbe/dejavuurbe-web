@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dejavuurbe.github.io/dejavuurbe-web/sitemap.xml
+Sitemap: https://dejavuurbe.com.ar/sitemap.xml
