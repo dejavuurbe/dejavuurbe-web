@@ -91,36 +91,66 @@
   .hero-cover{width:min(62%,375px)}
 }
 
-/* Iconos de servicios: misma caja visual, proporción estable y hover naranja. */
+/* Iconos discretos para reconocer cada servicio sin alterar la grilla. */
 .official-link{
   display:flex;
   align-items:center;
   gap:10px;
-  transition:border-color .18s ease,background-color .18s ease,box-shadow .18s ease,transform .18s ease;
+  transition:border-color .18s ease,background-color .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease;
 }
 .service-icon{
-  width:22px;
-  height:22px;
-  flex:0 0 22px;
+  width:20px;
+  height:20px;
+  flex:0 0 20px;
   display:block;
-  box-sizing:border-box;
-  padding:1px;
   fill:currentColor;
   color:#f2f2f2;
-  opacity:.92;
-  transform-origin:center;
-  transition:color .18s ease,opacity .18s ease,transform .18s ease;
+  opacity:.9;
+  transition:opacity .18s ease,transform .18s ease,color .18s ease;
 }
 .official-link:hover,
 .official-link:focus-visible{
-  background:rgba(255,90,31,.035);
-  box-shadow:0 0 0 1px rgba(255,90,31,.08);
+  background:rgba(255,106,50,.035);
+  box-shadow:0 0 0 1px rgba(255,106,50,.08);
 }
 .official-link:hover .service-icon,
 .official-link:focus-visible .service-icon{
   color:var(--fire);
   opacity:1;
-  transform:scale(1.08);
+  transform:scale(1.06);
+}
+
+/* Vowave: reemplaza el símbolo genérico por un isotipo limpio inspirado en su marca. */
+.official-link[href*="vowave.com"] .service-icon{
+  display:none;
+}
+.official-link[href*="vowave.com"]::before{
+  content:"∞";
+  width:20px;
+  height:20px;
+  flex:0 0 20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  border:1.6px solid currentColor;
+  border-radius:50%;
+  color:#f2f2f2;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:18px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-2px;
+  padding-right:1px;
+  opacity:.92;
+  transition:color .18s ease,border-color .18s ease,transform .18s ease,opacity .18s ease;
+}
+.official-link[href*="vowave.com"]:hover::before,
+.official-link[href*="vowave.com"]:focus-visible::before{
+  color:var(--fire);
+  border-color:var(--fire);
+  opacity:1;
+  transform:scale(1.06);
 }
 
 /* Interacciones consistentes en todo el sitio. */
@@ -169,6 +199,7 @@
 @media(prefers-reduced-motion:reduce){
   .catalog-visual .track-card{transition:none!important}
   .catalog-visual .track-card:hover,.catalog-visual .track-card:focus-visible{transform:none!important}
-  .service-icon,.official-link{transition:none!important}
-  .official-link:hover .service-icon,.official-link:focus-visible .service-icon{transform:none!important}
+  .service-icon{transition:none!important}
+  .official-link,.official-link::before{transition:none!important}
+  .official-link:hover .service-icon,.official-link:focus-visible .service-icon,.official-link[href*="vowave.com"]:hover::before,.official-link[href*="vowave.com"]:focus-visible::before{transform:none!important}
 }
