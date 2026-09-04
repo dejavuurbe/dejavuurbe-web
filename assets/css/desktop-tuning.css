@@ -196,33 +196,31 @@
   color:var(--fire);
 }
 
-/* Hero: metal suave + reflejo diagonal lento y elegante. */
+/* Hero: metal legible en reposo + reflejo diagonal visible. */
 .hero h1,
 .hero h1 span{
   color:transparent;
   -webkit-text-fill-color:transparent;
-  background-image:linear-gradient(118deg,
-    #a9a9a9 0%,
-    #d8d8d8 30%,
-    #bcbcbc 42%,
-    #f2f2f2 46%,
-    #ffffff 48.5%,
-    #f6f6f6 51%,
-    #bdbdbd 55%,
-    #d6d6d6 70%,
-    #a8a8a8 100%);
-  background-size:520% 100%;
-  background-position:110% 50%;
+  background-image:linear-gradient(112deg,
+    #777 0%,
+    #bdbdbd 18%,
+    #f5f5f5 34%,
+    #8a8a8a 47%,
+    #ffffff 52%,
+    #a2a2a2 59%,
+    #dedede 76%,
+    #707070 100%);
+  background-size:230% 100%;
+  background-position:100% 50%;
   -webkit-background-clip:text;
   background-clip:text;
-  animation:dejavuurbe-metal-sheen 8s cubic-bezier(.22,.61,.36,1) infinite;
-  text-shadow:0 3px 18px rgba(0,0,0,.38);
+  animation:dejavuurbe-metal-sheen 5.8s ease-in-out infinite;
+  text-shadow:0 2px 0 rgba(255,255,255,.08),0 4px 18px rgba(0,0,0,.5);
 }
 
 @keyframes dejavuurbe-metal-sheen{
-  0%,70%{background-position:110% 50%}
-  86%{background-position:-10% 50%}
-  100%{background-position:-10% 50%}
+  0%,18%{background-position:100% 50%}
+  72%,100%{background-position:0 50%}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -231,5 +229,5 @@
   .service-icon{transition:none!important}
   .official-link,.official-link::before{transition:none!important}
   .official-link:hover .service-icon,.official-link:focus-visible .service-icon,.official-link[href*="vowave.com"]:hover::before,.official-link[href*="vowave.com"]:focus-visible::before{transform:none!important}
-  .hero h1,.hero h1 span{animation:none!important;background-position:50% 50%!important}
+  .hero h1,.hero h1 span{animation:none!important;background-position:42% 50%!important}
 }
