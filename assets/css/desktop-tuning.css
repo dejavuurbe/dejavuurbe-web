@@ -196,10 +196,30 @@
   color:var(--fire);
 }
 
+/* Hero: acabado metálico suave con reflejo diagonal periódico. */
+.hero h1,
+.hero h1 span{
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  background-image:linear-gradient(118deg,#b8b8b8 0%,#ececec 30%,#cfcfcf 43%,#ffffff 48%,#d7d7d7 53%,#f1f1f1 68%,#bdbdbd 100%);
+  background-size:320% 100%;
+  background-position:100% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:dejavuurbe-metal-sheen 8.5s ease-in-out infinite;
+}
+
+@keyframes dejavuurbe-metal-sheen{
+  0%,70%{background-position:100% 50%}
+  82%{background-position:0% 50%}
+  100%{background-position:0% 50%}
+}
+
 @media(prefers-reduced-motion:reduce){
   .catalog-visual .track-card{transition:none!important}
   .catalog-visual .track-card:hover,.catalog-visual .track-card:focus-visible{transform:none!important}
   .service-icon{transition:none!important}
   .official-link,.official-link::before{transition:none!important}
   .official-link:hover .service-icon,.official-link:focus-visible .service-icon,.official-link[href*="vowave.com"]:hover::before,.official-link[href*="vowave.com"]:focus-visible::before{transform:none!important}
+  .hero h1,.hero h1 span{animation:none!important;background-position:50% 50%!important}
 }
