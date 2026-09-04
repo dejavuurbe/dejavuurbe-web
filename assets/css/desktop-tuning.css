@@ -196,7 +196,7 @@
   color:var(--fire);
 }
 
-/* Hero: metal suave + franja de reflejo diagonal claramente visible. */
+/* Hero: metal suave + reflejo diagonal lento y elegante. */
 .hero h1,
 .hero h1 span{
   color:transparent;
@@ -215,13 +215,13 @@
   background-position:110% 50%;
   -webkit-background-clip:text;
   background-clip:text;
-  animation:dejavuurbe-metal-sheen 7s cubic-bezier(.22,.61,.36,1) infinite;
+  animation:dejavuurbe-metal-sheen 8s cubic-bezier(.22,.61,.36,1) infinite;
   text-shadow:0 3px 18px rgba(0,0,0,.38);
 }
 
 @keyframes dejavuurbe-metal-sheen{
-  0%,72%{background-position:110% 50%}
-  84%{background-position:-10% 50%}
+  0%,70%{background-position:110% 50%}
+  86%{background-position:-10% 50%}
   100%{background-position:-10% 50%}
 }
 
