@@ -1,10 +1,19 @@
 {
+  "@context": "https://schema.org",
+  "@id": "https://dejavuurbe.com.ar/#dejavuurbe",
   "name": "DejavuUrbe",
+  "alternate_names": [
+    "Dejavu Urbe"
+  ],
   "type": "MusicGroup",
+  "founded": "1999",
   "location": "Buenos Aires, Argentina",
-  "genre": "Rock",
-  "public_base": "https://dejavuurbe.com.ar",
-  "future_domain": "https://dejavuurbe.com.ar",
+  "genres": [
+    "Rock argentino",
+    "Rock en español"
+  ],
+  "official_site": "https://dejavuurbe.com.ar/",
+  "entity_data": "https://dejavuurbe.com.ar/data/entity.jsonld",
   "musicbrainz_artist": "501f158f-7f8a-4ea5-92c2-a7993edc0bc7",
   "musicbrainz_label": "843bb345-1ed9-4831-8f41-f1ee39a7b82e",
   "official_profiles": {
@@ -13,8 +22,10 @@
     "instagram": "https://www.instagram.com/dejavuurbe/",
     "facebook": "https://www.facebook.com/profile.php?id=61578015827932",
     "discogs": "https://www.discogs.com/label/4655592-DejavuUrbe",
-    "vowave": "https://www.vowave.com/DejavuUrbe"
+    "vowave": "https://www.vowave.com/DejavuUrbe",
+    "musicbrainz": "https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7"
   },
   "phonogram_notice": "℗ 2026 DejavuUrbe",
-  "data_note": "La titularidad del fonograma y la autoría de la composición son campos conceptualmente distintos y no deben inferirse uno del otro."
+  "data_note": "La titularidad del fonograma y la autoría de la composición son campos conceptualmente distintos y no deben inferirse uno del otro.",
+  "last_updated": "2026-09-04"
 }
