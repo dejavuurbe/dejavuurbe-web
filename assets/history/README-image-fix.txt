@@ -1,0 +1,1 @@
+La contraportada final se carga desde banda/index.html como recurso embebido para evitar fallos de binario.
