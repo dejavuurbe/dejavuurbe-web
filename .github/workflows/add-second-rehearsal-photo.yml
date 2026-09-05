@@ -22,13 +22,13 @@ jobs:
           from pathlib import Path
           import base64, re
 
-          src_path = Path('assets/history/rehearsal-2025-02-source.b64.txt')
+          src_path = Path('assets/history/rehearsal-2025-02-mini.b64.txt')
           raw = ''.join(src_path.read_text(encoding='utf-8').split())
           raw += '=' * (-len(raw) % 4)
           data = base64.b64decode(raw, validate=False)
 
-          if len(data) < 10000 or not data.startswith(b'\xff\xd8\xff'):
-              raise SystemExit(f'JPEG inválido: {len(data)} bytes, firma={data[:4]!r}')
+          if len(data) < 5000 or not data.startswith(b'\xff\xd8\xff') or not data.endswith(b'\xff\xd9'):
+              raise SystemExit(f'JPEG inválido: {len(data)} bytes, firma={data[:4]!r}, final={data[-2:]!r}')
 
           jpg = Path('assets/history/rehearsal-2025-02.jpg')
           jpg.write_bytes(data)
@@ -37,7 +37,7 @@ jobs:
           s = p.read_text(encoding='utf-8')
 
           target = '<p>La banda volvió a tocar canciones que habían nacido décadas antes, pero con otra experiencia y otro contexto. El repertorio funcionó como punto de continuidad entre ambas etapas.</p>'
-          figure = '<figure class="history-media history-media-single" style="max-width:520px"><img src="../assets/history/rehearsal-2025-02.jpg?v=3" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="600" height="600"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
+          figure = '<figure class="history-media history-media-single" style="max-width:420px"><img src="../assets/history/rehearsal-2025-02.jpg?v=4" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="300" height="300" style="width:100%;height:auto"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
 
           pattern = r'<figure class="history-media history-media-single"[^>]*><img src="\.\./assets/history/rehearsal-2025-02\.(?:webp|jpg)[^"]*"[^>]*>.*?</figure>'
           s2, n = re.subn(pattern, figure, s, count=1, flags=re.S)
@@ -59,7 +59,8 @@ jobs:
           p = Path('assets/history/rehearsal-2025-02.jpg')
           data = p.read_bytes()
           assert data.startswith(b'\xff\xd8\xff'), data[:8]
-          assert len(data) > 10000, len(data)
+          assert data.endswith(b'\xff\xd9'), data[-8:]
+          assert len(data) > 5000, len(data)
           print('JPEG OK:', len(data), 'bytes')
           PY
 
