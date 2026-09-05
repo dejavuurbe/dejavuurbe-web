@@ -1,0 +1,47 @@
+name: Ajustar fotos estudio 2026
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-studio-2026-layout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Ajustar bloque 2026 y validar imagen
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/history/studio-profesional-2026.jpg')
+          data = p.read_bytes()
+          if not (len(data) > 1024 and data[:3] == b'\xff\xd8\xff' and data[-2:] == b'\xff\xd9'):
+              raise SystemExit('JPEG profesional inválido')
+          html_path = Path('banda/index.html')
+          html = html_path.read_text(encoding='utf-8')
+          old = '''<figure style="margin:2rem 0 1.5rem"><img src="../assets/history/studio-2026.webp" alt="Guitarra y teclados durante las sesiones actuales de grabación de DejavuUrbe en 2026" loading="lazy" width="480" height="1067" style="display:block;width:min(100%,480px);height:auto;border-radius:18px;border:1px solid rgba(255,120,40,.35)"><figcaption style="margin-top:.7rem;color:#aaa;font-size:.92rem">Sesiones de grabación · 2026</figcaption></figure><figure class="history-media history-media-single" style="max-width:600px"><img src="../assets/history/studio-profesional-2026.jpg?v=1" alt="DejavuUrbe durante una sesión de grabación en estudio profesional en 2026" loading="lazy" width="600" height="800" style="width:100%;height:auto"><figcaption>Sesión de grabación en estudio profesional · 2026.</figcaption></figure>'''
+          new = '''<div class="history-media history-media-rehearsal"><div class="history-kicker">Grabaciones actuales · 2026</div><div class="history-media-grid"><figure><img src="../assets/history/studio-2026.webp?v=2" alt="Guitarra y teclados durante las sesiones actuales de grabación de DejavuUrbe en 2026" loading="lazy"><figcaption>Trabajo en el estudio propio de DejavuUrbe · 2026.</figcaption></figure><figure><img src="../assets/history/studio-profesional-2026.jpg?v=2" alt="DejavuUrbe durante una sesión de grabación en estudio profesional en 2026" loading="lazy"><figcaption>Sesión de grabación en estudio profesional · 2026.</figcaption></figure></div></div>'''
+          if old not in html:
+              raise SystemExit('No se encontró el bloque anterior exacto')
+          html = html.replace(old, new, 1)
+          oldp = '<p>Actualmente DejavuUrbe se encuentra grabando nuevo material. Las sesiones recientes abren una etapa que ya no se limita a recuperar el repertorio anterior: la banda está construyendo canciones nuevas y desarrollando el próximo capítulo de su historia.</p>'
+          newp = '<p>Actualmente DejavuUrbe se encuentra grabando nuevo material. Gran parte del proceso creativo y de producción se realiza en el estudio propio de la banda, donde las canciones toman forma antes de pasar a un estudio profesional para completar las etapas finales de cada producción.</p><p>Estas sesiones abren una etapa que ya no se limita a recuperar el repertorio anterior: la banda está construyendo canciones nuevas y desarrollando el próximo capítulo de su historia.</p>'
+          if oldp in html:
+              html = html.replace(oldp, newp, 1)
+          html_path.write_text(html, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add banda/index.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Mostrar fotos de estudio 2026 lado a lado"
+          git push
