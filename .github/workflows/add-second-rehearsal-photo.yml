@@ -17,17 +17,26 @@ jobs:
       - name: Reconstruir imagen e insertarla en Banda
         shell: bash
         run: |
-          base64 -d assets/history/rehearsal-2025-02.b64.txt > assets/history/rehearsal-2025-02.webp
           python - <<'PY'
           from pathlib import Path
+          import base64
+
+          src_path = Path('assets/history/rehearsal-2025-02.b64.txt')
+          raw = ''.join(src_path.read_text(encoding='utf-8').split())
+          raw += '=' * (-len(raw) % 4)
+          data = base64.b64decode(raw, validate=False)
+          if len(data) < 10000:
+              raise SystemExit(f'Imagen reconstruida demasiado pequeña: {len(data)} bytes')
+          Path('assets/history/rehearsal-2025-02.webp').write_bytes(data)
+
           p = Path('banda/index.html')
           s = p.read_text(encoding='utf-8')
           target = '<p>La banda volvió a tocar canciones que habían nacido décadas antes, pero con otra experiencia y otro contexto. El repertorio funcionó como punto de continuidad entre ambas etapas.</p>'
-          insert = target + '<figure class="history-media history-media-single" style="max-width:720px"><img src="../assets/history/rehearsal-2025-02.webp" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="700" height="700"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
-          if 'rehearsal-2025-02.webp" alt=' not in s:
+          figure = '<figure class="history-media history-media-single" style="max-width:720px"><img src="../assets/history/rehearsal-2025-02.webp?v=1" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="700" height="700"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
+          if 'rehearsal-2025-02.webp?v=1' not in s:
               if target not in s:
                   raise SystemExit('No se encontró el párrafo objetivo')
-              s = s.replace(target, insert, 1)
+              s = s.replace(target, target + figure, 1)
               p.write_text(s, encoding='utf-8')
           PY
           rm -f assets/history/rehearsal-2025-02.jpg
