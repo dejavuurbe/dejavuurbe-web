@@ -11,6 +11,8 @@ on:
       - 'assets/covers/**'
       - 'assets/history/**'
       - 'scripts/verificar_sitio_publicado.py'
+      - 'scripts/verificar_imagenes.py'
+      - '.github/workflows/indexnow.yml'
   workflow_dispatch:
 
 permissions:
@@ -25,6 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verificar catálogo e integridad de imágenes
+        run: |
+          python scripts/verificar_catalogo.py
+          python scripts/verificar_imagenes.py
 
       - name: Esperar y verificar la publicación
         run: |
@@ -92,4 +99,3 @@ jobs:
 
           raise SystemExit(f'ERROR: IndexNow rechazó el envío: {last_error}')
           PY
-
