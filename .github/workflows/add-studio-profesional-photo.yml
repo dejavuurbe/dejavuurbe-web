@@ -1,0 +1,50 @@
+name: Agregar foto estudio profesional 2026
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-studio-profesional-photo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Insertar foto profesional en Banda
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('banda/index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<p>Actualmente DejavuUrbe se encuentra grabando nuevo material.'
+          block = '''<figure class="history-media history-media-single" style="max-width:600px"><img src="../assets/history/studio-profesional-2026.jpg?v=1" alt="DejavuUrbe durante una sesión de grabación en estudio profesional en 2026" loading="lazy" width="600" height="800" style="width:100%;height:auto"><figcaption>Sesión de grabación en estudio profesional · 2026.</figcaption></figure>'''
+          if 'studio-profesional-2026.jpg' not in s:
+              if marker not in s:
+                  raise SystemExit('No se encontró el punto de inserción')
+              s = s.replace(marker, block + marker, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Validar imagen y referencia
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          img=Path('assets/history/studio-profesional-2026.jpg').read_bytes()
+          assert img[:3] == b'\xff\xd8\xff', 'El archivo no es JPEG real'
+          html=Path('banda/index.html').read_text(encoding='utf-8')
+          assert 'studio-profesional-2026.jpg?v=1' in html
+          print('JPEG y referencia HTML validados:', len(img), 'bytes')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add banda/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Mostrar foto de estudio profesional 2026 en Banda'
+            git push
+          fi
