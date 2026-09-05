@@ -1,0 +1,50 @@
+name: Incorporar estudio profesional 2026
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-professional-studio-2026.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Actualizar cierre de historia 2026
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('banda/index.html')
+          s=p.read_text(encoding='utf-8')
+          old='<p>Actualmente DejavuUrbe se encuentra grabando nuevo material. Las sesiones recientes abren una etapa que ya no se limita a recuperar el repertorio anterior: la banda está construyendo canciones nuevas y desarrollando el próximo capítulo de su historia.</p>'
+          new='''<p>Actualmente DejavuUrbe se encuentra grabando nuevo material. Gran parte de ese proceso sucede en el estudio propio de la banda, donde las ideas toman forma entre instrumentos, ensayos, arreglos, grabaciones y producción. Cuando cada tema alcanza la etapa necesaria, el trabajo continúa en estudio profesional para completar su versión definitiva.</p><figure class="history-media history-media-single" style="max-width:520px"><img src="../assets/history/studio-profesional-2026.jpg?v=1" alt="DejavuUrbe durante una etapa de trabajo en estudio profesional en 2026" loading="lazy" width="600" height="800" style="width:100%;height:auto"><figcaption>DejavuUrbe en estudio durante la etapa profesional de producción · 2026.</figcaption></figure>'''
+          if old not in s:
+              raise SystemExit('No se encontro el parrafo objetivo; no se modifica el HTML')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validar imagen y HTML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          b=Path('assets/history/studio-profesional-2026.jpg').read_bytes()
+          assert b[:3] == b'\xff\xd8\xff' and b[-2:] == b'\xff\xd9'
+          s=Path('banda/index.html').read_text(encoding='utf-8')
+          assert 'studio-profesional-2026.jpg?v=1' in s
+          assert 'estudio propio de la banda' in s
+          PY
+      - name: Publicar cambio
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add banda/index.html
+          git commit -m "Contar proceso de produccion y estudio profesional 2026"
+          git push
