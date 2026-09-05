@@ -1,0 +1,9 @@
+# Archivos temporales de reconstrucción binaria
+*.b64.txt
+**/_restore/
+**/README-test-ignore.txt
+**/*-source-check.txt
+**/*-valid-source.txt
+*.bak
+*.tmp
+
