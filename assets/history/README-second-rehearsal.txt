@@ -1,0 +1,1 @@
+Second rehearsal image source stored separately; pending binary conversion.
