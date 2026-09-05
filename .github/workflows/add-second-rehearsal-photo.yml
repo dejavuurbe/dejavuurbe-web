@@ -1,4 +1,4 @@
-name: Agregar segunda foto de ensayo 2025
+name: Corregir tercera foto de ensayo 2025
 
 on:
   push:
@@ -14,44 +14,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reconstruir imagen e insertarla en Banda
+
+      - name: Reconstruir JPEG e igualar implementación a las fotos que funcionan
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import base64
+          import base64, re
 
-          src_path = Path('assets/history/rehearsal-2025-02.b64.txt')
+          src_path = Path('assets/history/rehearsal-2025-02-source.b64.txt')
           raw = ''.join(src_path.read_text(encoding='utf-8').split())
           raw += '=' * (-len(raw) % 4)
           data = base64.b64decode(raw, validate=False)
-          if len(data) < 10000:
-              raise SystemExit(f'Imagen reconstruida demasiado pequeña: {len(data)} bytes')
-          Path('assets/history/rehearsal-2025-02.webp').write_bytes(data)
+
+          if len(data) < 10000 or not data.startswith(b'\xff\xd8\xff'):
+              raise SystemExit(f'JPEG inválido: {len(data)} bytes, firma={data[:4]!r}')
+
+          jpg = Path('assets/history/rehearsal-2025-02.jpg')
+          jpg.write_bytes(data)
 
           p = Path('banda/index.html')
           s = p.read_text(encoding='utf-8')
+
           target = '<p>La banda volvió a tocar canciones que habían nacido décadas antes, pero con otra experiencia y otro contexto. El repertorio funcionó como punto de continuidad entre ambas etapas.</p>'
-          figure = '<figure class="history-media history-media-single" style="max-width:720px"><img src="../assets/history/rehearsal-2025-02.webp?v=1" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="700" height="700"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
-          if 'rehearsal-2025-02.webp?v=1' not in s:
+          figure = '<figure class="history-media history-media-single" style="max-width:520px"><img src="../assets/history/rehearsal-2025-02.jpg?v=3" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="600" height="600"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
+
+          pattern = r'<figure class="history-media history-media-single"[^>]*><img src="\.\./assets/history/rehearsal-2025-02\.(?:webp|jpg)[^"]*"[^>]*>.*?</figure>'
+          s2, n = re.subn(pattern, figure, s, count=1, flags=re.S)
+          if n == 0:
               if target not in s:
-                  raise SystemExit('No se encontró el párrafo objetivo')
-              s = s.replace(target, target + figure, 1)
-              p.write_text(s, encoding='utf-8')
+                  raise SystemExit('No se encontró ni la figura anterior ni el párrafo objetivo')
+              s2 = s.replace(target, target + figure, 1)
+
+          p.write_text(s2, encoding='utf-8')
           PY
-          rm -f assets/history/rehearsal-2025-02.jpg
-          rm -f assets/history/rehearsal-2025-02.b64.txt
-          rm -f assets/history/README-second-rehearsal.txt
+
+          rm -f assets/history/rehearsal-2025-02.webp
+
+      - name: Validar que el archivo final sea JPEG real
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/history/rehearsal-2025-02.jpg')
+          data = p.read_bytes()
+          assert data.startswith(b'\xff\xd8\xff'), data[:8]
+          assert len(data) > 10000, len(data)
+          print('JPEG OK:', len(data), 'bytes')
+          PY
+
       - name: Publicar cambio
         shell: bash
         run: |
           git config user.name "dejavuurbe"
           git config user.email "dejavuurbe@gmail.com"
-          git add banda/index.html assets/history/rehearsal-2025-02.webp
+          git add banda/index.html assets/history/rehearsal-2025-02.jpg
           git add -u assets/history
           if git diff --cached --quiet; then
             echo "Sin cambios"
             exit 0
           fi
-          git commit -m "Agregar segunda foto de ensayo 2025 en la historia"
+          git commit -m "Usar JPEG real para tercera foto de ensayo 2025"
           git push
