@@ -1,0 +1,48 @@
+name: Agregar segunda foto de ensayo 2025
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-second-rehearsal-photo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruir imagen e insertarla en Banda
+        shell: bash
+        run: |
+          base64 -d assets/history/rehearsal-2025-02.b64.txt > assets/history/rehearsal-2025-02.webp
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('banda/index.html')
+          s = p.read_text(encoding='utf-8')
+          target = '<p>La banda volvió a tocar canciones que habían nacido décadas antes, pero con otra experiencia y otro contexto. El repertorio funcionó como punto de continuidad entre ambas etapas.</p>'
+          insert = target + '<figure class="history-media history-media-single" style="max-width:720px"><img src="../assets/history/rehearsal-2025-02.webp" alt="Ensayo de DejavuUrbe durante el reencuentro de la banda en 2025, con voz y teclados" loading="lazy" width="700" height="700"><figcaption>Ensayos del reencuentro de DejavuUrbe · 2025.</figcaption></figure>'
+          if 'rehearsal-2025-02.webp" alt=' not in s:
+              if target not in s:
+                  raise SystemExit('No se encontró el párrafo objetivo')
+              s = s.replace(target, insert, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+          rm -f assets/history/rehearsal-2025-02.jpg
+          rm -f assets/history/rehearsal-2025-02.b64.txt
+          rm -f assets/history/README-second-rehearsal.txt
+      - name: Publicar cambio
+        shell: bash
+        run: |
+          git config user.name "dejavuurbe"
+          git config user.email "dejavuurbe@gmail.com"
+          git add banda/index.html assets/history/rehearsal-2025-02.webp
+          git add -u assets/history
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+            exit 0
+          fi
+          git commit -m "Agregar segunda foto de ensayo 2025 en la historia"
+          git push
