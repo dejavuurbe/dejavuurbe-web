@@ -80,21 +80,19 @@ Se ejecuta desde `.github/workflows/site-check.yml` diariamente y en cada cambio
   - `data/entity.jsonld`: HTTP 200 y MIME `application/ld+json`;
   - URL inexistente: HTTP 404 y `noindex,follow`.
 
-### Ajuste externo pendiente en Cloudflare
+### 2026-09-06 — Verificación de Cloudflare AI Crawl Control
 
-Cloudflare está anteponiendo reglas administradas al `robots.txt` del repositorio. La respuesta pública permite búsqueda y referencia, pero bloquea diversos rastreadores de IA.
+Se revisó el panel autenticado de Cloudflare para `dejavuurbe.com.ar`.
 
-Este comportamiento no se corrige modificando solamente el repositorio. Debe revisarse en el panel de Cloudflare:
+Resultado observado en las últimas 24 horas:
 
-1. seleccionar `dejavuurbe.com.ar`;
-2. abrir **AI Crawl Control**;
-3. revisar **Directives/robots.txt** y **Crawlers**;
-4. permitir agentes destinados a búsqueda, respuestas con citas y referencias;
-5. conservar el bloqueo de entrenamiento cuando esa sea la política elegida;
-6. mantener como objetivo `search=yes`, `ai-train=no` y `use=reference`;
-7. guardar;
-8. volver a solicitar `https://dejavuurbe.com.ar/robots.txt`;
-9. comprobar que no existan reglas contradictorias para los agentes que se decida permitir;
-10. registrar aquí la fecha y el resultado.
+- 35 solicitudes de rastreadores de IA;
+- 35 solicitudes permitidas;
+- 0 solicitudes fallidas;
+- Applebot: 29;
+- Claude-SearchBot y otros rastreadores de Anthropic: 4;
+- Googlebot y otro rastreador de Google: 2.
 
-No cambiar esta configuración sin revisar primero las categorías de cada rastreador, porque búsqueda, asistencia en tiempo real y entrenamiento son usos distintos.
+Conclusión: no se modificó `robots.txt gestionado`. La configuración vigente permite la búsqueda, las respuestas con referencia y los agentes de búsqueda, mientras reserva el contenido frente a rastreadores destinados principalmente al entrenamiento. Se mantiene como política publicada `search=yes`, `ai-train=no` y `use=reference`.
+
+Criterio para futuras revisiones: diferenciar siempre los bots de búsqueda o asistencia de los bots de entrenamiento. Por ejemplo, un rastreador de entrenamiento bloqueado no implica que el buscador o asistente de la misma empresa esté bloqueado. Solo cambiar la configuración si aparecen solicitudes fallidas de agentes de búsqueda que aporten indexación, citas o referencias.
