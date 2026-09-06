@@ -13,11 +13,11 @@ jobs:
   health:
     runs-on: ubuntu-latest
     steps:
-      - name: Verificar sitio público provisional
+      - name: Verificar sitio público oficial
         shell: bash
         run: |
           set -euo pipefail
-          URL="https://dejavuurbe.github.io/dejavuurbe-web/"
+          URL="https://dejavuurbe.com.ar/"
           tmp="$(mktemp)"
           code="$(curl -L --silent --show-error --max-time 30 -o "$tmp" -w '%{http_code}' "$URL")"
           echo "HTTP $code"
