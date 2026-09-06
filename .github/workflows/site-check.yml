@@ -88,6 +88,9 @@ jobs:
       - name: Verificar integridad binaria de imágenes
         run: python scripts/verificar_imagenes.py
 
+      - name: Auditar descubribilidad para buscadores e IA
+        run: python scripts/verificar_descubribilidad.py
+
       - name: Verificar dominio publicado
         run: python scripts/verificar_sitio_publicado.py
 
