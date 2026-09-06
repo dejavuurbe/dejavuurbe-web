@@ -1,6 +1,16 @@
 name: Site check
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'data/**'
+      - 'scripts/verificar_*.py'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - 'llms.txt'
+      - '.github/workflows/site-check.yml'
   schedule:
     - cron: '47 9 * * *'
   workflow_dispatch:
