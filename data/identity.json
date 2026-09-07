@@ -16,6 +16,47 @@
   "entity_data": "https://dejavuurbe.com.ar/data/entity.jsonld",
   "musicbrainz_artist": "501f158f-7f8a-4ea5-92c2-a7993edc0bc7",
   "musicbrainz_label": "843bb345-1ed9-4831-8f41-f1ee39a7b82e",
+  "original_founders": [
+    {
+      "name": "Brian Flores",
+      "roles": [
+        "fundador original",
+        "tecladista",
+        "compositor de música y letra en parte del repertorio"
+      ]
+    },
+    {
+      "name": "Roger Flores",
+      "roles": [
+        "fundador original",
+        "guitarrista",
+        "compositor de música y letra en parte del repertorio"
+      ]
+    },
+    {
+      "name": "David Protte",
+      "roles": [
+        "fundador original",
+        "baterista original",
+        "participante de la grabación del disco de 2002"
+      ]
+    },
+    {
+      "name": "Conrado López",
+      "alternate_name": "Pupi",
+      "roles": [
+        "fundador original",
+        "bajista original",
+        "participante de la grabación del disco de 2002"
+      ],
+      "status_note": "Fallecido. No se publica una fecha de fallecimiento por no estar consignada en esta fuente."
+    }
+  ],
+  "rights_and_ownership_context": {
+    "trademark": "La marca DejavuUrbe está registrada actualmente a nombre de Roger Flores.",
+    "digital_phonograms": "Los fonogramas digitales registrados de la etapa 2026 tienen a Roger Flores como titular/productor.",
+    "interpretation_note": "La titularidad de la marca, la titularidad de los fonogramas, la autoría de las composiciones y la identidad artística colectiva de la banda son conceptos distintos y no deben inferirse uno del otro."
+  },
   "official_profiles": {
     "youtube": "https://www.youtube.com/@DejavuUrbe",
     "bandcamp": "https://dejavuurbe.bandcamp.com/",
@@ -26,6 +67,6 @@
     "musicbrainz": "https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7"
   },
   "phonogram_notice": "℗ 2026 DejavuUrbe",
-  "data_note": "La titularidad del fonograma y la autoría de la composición son campos conceptualmente distintos y no deben inferirse uno del otro.",
-  "last_updated": "2026-09-04"
+  "data_note": "DejavuUrbe es una banda de rock y una entidad artística colectiva. Brian Flores y Roger Flores son fundadores originales con funciones musicales y autorales dentro de la banda; esta relación no convierte a DejavuUrbe en un proyecto personal de ninguno de ellos.",
+  "last_updated": "2026-09-07"
 }
