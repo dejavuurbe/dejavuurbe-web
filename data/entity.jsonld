@@ -19,6 +19,12 @@
         "@type": "Place",
         "name": "Buenos Aires, Argentina"
       },
+      "founder": [
+        { "@id": "https://dejavuurbe.com.ar/#brian-flores" },
+        { "@id": "https://dejavuurbe.com.ar/#roger-flores" },
+        { "@id": "https://dejavuurbe.com.ar/#david-protte" },
+        { "@id": "https://dejavuurbe.com.ar/#conrado-lopez" }
+      ],
       "sameAs": [
         "https://www.youtube.com/@DejavuUrbe",
         "https://dejavuurbe.bandcamp.com/",
@@ -28,6 +34,31 @@
         "https://www.vowave.com/DejavuUrbe",
         "https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7"
       ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dejavuurbe.com.ar/#brian-flores",
+      "name": "Brian Flores",
+      "description": "Fundador original de DejavuUrbe, tecladista y compositor de música y letra en parte del repertorio de la banda."
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dejavuurbe.com.ar/#roger-flores",
+      "name": "Roger Flores",
+      "description": "Fundador original de DejavuUrbe, guitarrista y compositor de música y letra en parte del repertorio de la banda."
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dejavuurbe.com.ar/#david-protte",
+      "name": "David Protte",
+      "description": "Baterista original de DejavuUrbe y participante de la grabación del disco de 2002."
+    },
+    {
+      "@type": "Person",
+      "@id": "https://dejavuurbe.com.ar/#conrado-lopez",
+      "name": "Conrado López",
+      "alternateName": "Pupi",
+      "description": "Bajista original de DejavuUrbe y participante de la grabación del disco de 2002."
     },
     {
       "@type": "WebSite",
@@ -53,22 +84,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/ya-no-puedo-evitarte/#recording",
             "name": "Ya no puedo evitarte",
             "url": "https://dejavuurbe.com.ar/musica/ya-no-puedo-evitarte/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-07",
             "isrcCode": "QZZ782620357",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ782620357"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825293037270"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ782620357" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825293037270" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/ya-no-puedo-evitarte",
@@ -84,22 +105,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/cada-noche/#recording",
             "name": "Cada noche",
             "url": "https://dejavuurbe.com.ar/musica/cada-noche/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-10",
             "isrcCode": "QZZ7L2605717",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7L2605717"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825254445076"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7L2605717" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825254445076" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/cada-noche",
@@ -115,22 +126,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/balada-para-un-corto-amor/#recording",
             "name": "Balada para un corto amor",
             "url": "https://dejavuurbe.com.ar/musica/balada-para-un-corto-amor/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-10",
             "isrcCode": "QZZ7K2633375",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7K2633375"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825254762821"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7K2633375" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825254762821" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/balada-para-un-corto-amor",
@@ -146,22 +147,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/el-fantasma/#recording",
             "name": "El fantasma",
             "url": "https://dejavuurbe.com.ar/musica/el-fantasma/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-12",
             "isrcCode": "QZZ7N2654844",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7N2654844"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233963188"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7N2654844" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233963188" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/el-fantasma",
@@ -177,22 +168,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/brilla/#recording",
             "name": "Brilla",
             "url": "https://dejavuurbe.com.ar/musica/brilla/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-12",
             "isrcCode": "QZZ7M2625049",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7M2625049"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233967575"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7M2625049" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233967575" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/brilla",
@@ -208,22 +189,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/dos-extranos/#recording",
             "name": "Dos extraños",
             "url": "https://dejavuurbe.com.ar/musica/dos-extranos/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-12",
             "isrcCode": "QZZ7M2622163",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7M2622163"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233978250"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7M2622163" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233978250" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/dos-extra-os",
@@ -239,22 +210,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/luna/#recording",
             "name": "Luna",
             "url": "https://dejavuurbe.com.ar/musica/luna/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-13",
             "isrcCode": "QZZ7N2609822",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7N2609822"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233567355"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7N2609822" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233567355" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/luna",
@@ -270,22 +231,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/triste-cancion/#recording",
             "name": "Triste canción",
             "url": "https://dejavuurbe.com.ar/musica/triste-cancion/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-13",
             "isrcCode": "QZZ7N2609854",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7N2609854"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233562329"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7N2609854" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233562329" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/triste-cancion",
@@ -301,22 +252,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/despiertame/#recording",
             "name": "Despiértame",
             "url": "https://dejavuurbe.com.ar/musica/despiertame/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-13",
             "isrcCode": "QZZ7N2609821",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7N2609821"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233571154"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7N2609821" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233571154" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/despiertame",
@@ -332,22 +273,12 @@
             "@id": "https://dejavuurbe.com.ar/musica/luna-acustico/#recording",
             "name": "Luna (acústico)",
             "url": "https://dejavuurbe.com.ar/musica/luna-acustico/",
-            "byArtist": {
-              "@id": "https://dejavuurbe.com.ar/#dejavuurbe"
-            },
+            "byArtist": { "@id": "https://dejavuurbe.com.ar/#dejavuurbe" },
             "datePublished": "2026-05-13",
             "isrcCode": "QZZ7N2607129",
             "identifier": [
-              {
-                "@type": "PropertyValue",
-                "propertyID": "ISRC",
-                "value": "QZZ7N2607129"
-              },
-              {
-                "@type": "PropertyValue",
-                "propertyID": "UPC",
-                "value": "825233578122"
-              }
+              { "@type": "PropertyValue", "propertyID": "ISRC", "value": "QZZ7N2607129" },
+              { "@type": "PropertyValue", "propertyID": "UPC", "value": "825233578122" }
             ],
             "sameAs": [
               "https://dejavuurbe.bandcamp.com/track/luna-acustico",
