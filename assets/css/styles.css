@@ -78,3 +78,5 @@
   .catalog-visual .track-card p{font-size:.65rem}
 }
 /* end-music-cards-app-v1 */
+
+.app-install-button{font:inherit;color:var(--text);background:transparent;cursor:pointer}.app-install-button:disabled{cursor:default;opacity:.6}.app-install-button[hidden]{display:none!important}\n
