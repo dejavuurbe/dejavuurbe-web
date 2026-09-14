@@ -18,6 +18,7 @@
     event.preventDefault();
     deferredPrompt = event;
     installButton.hidden = false;
+    installButton.style.removeProperty("display");
   });
 
   installButton.addEventListener("click", async () => {
@@ -27,11 +28,13 @@
     await deferredPrompt.userChoice;
     deferredPrompt = null;
     installButton.hidden = true;
+    installButton.style.display = "none";
     installButton.disabled = false;
   });
 
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
     installButton.hidden = true;
+    installButton.style.display = "none";
   });
 })();
