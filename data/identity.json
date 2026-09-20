@@ -3,7 +3,9 @@
   "@id": "https://dejavuurbe.com.ar/#dejavuurbe",
   "name": "DejavuUrbe",
   "alternate_names": [
-    "Dejavu Urbe"
+    "Dejavu Urbe",
+    "Deja Vu Urbe",
+    "Dejavú Urbe"
   ],
   "type": "MusicGroup",
   "founded": "1999",
@@ -64,9 +66,10 @@
     "facebook": "https://www.facebook.com/profile.php?id=61578015827932",
     "discogs": "https://www.discogs.com/label/4655592-DejavuUrbe",
     "vowave": "https://www.vowave.com/DejavuUrbe",
-    "musicbrainz": "https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7"
+    "musicbrainz": "https://musicbrainz.org/artist/501f158f-7f8a-4ea5-92c2-a7993edc0bc7",
+    "youtube_music": "https://music.youtube.com/@dejavuurbe"
   },
   "phonogram_notice": "℗ 2026 DejavuUrbe",
   "data_note": "DejavuUrbe es una banda de rock y una entidad artística colectiva. Brian Flores y Roger Flores son fundadores originales con funciones musicales y autorales dentro de la banda; esta relación no convierte a DejavuUrbe en un proyecto personal de ninguno de ellos.",
-  "last_updated": "2026-09-07"
+  "last_updated": "2026-09-20"
 }
