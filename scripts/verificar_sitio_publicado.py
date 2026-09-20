@@ -65,8 +65,10 @@ def main() -> int:
     remote_root = ET.fromstring(remote_sitemap)
     remote_urls = [node.text.strip() for node in remote_root.findall("sm:url/sm:loc", namespace) if node.text]
     assert remote_urls == urls, "el sitemap publicado no coincide con el repositorio"
-    assert b"<lastmod>2026-09-05</lastmod>" in remote_sitemap, "el sitemap publicado aún no contiene la actualización del 2026-09-05"
-    print(f"OK sitemap publicado: {len(urls)} URLs")
+    local_lastmods = [node.text.strip() for node in local_tree.findall("sm:url/sm:lastmod", namespace) if node.text]
+    remote_lastmods = [node.text.strip() for node in remote_root.findall("sm:url/sm:lastmod", namespace) if node.text]
+    assert remote_lastmods == local_lastmods, "las fechas lastmod del sitemap publicado no coinciden con el repositorio"
+    print(f"OK sitemap publicado: {len(urls)} URLs y lastmod sincronizados")
 
     for url in urls:
         assert_html(url)
