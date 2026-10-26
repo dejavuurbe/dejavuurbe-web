@@ -99,7 +99,39 @@ Criterio para futuras revisiones: diferenciar siempre los bots de búsqueda o as
 
 
 ## 2026-10-26 — Botón de escucha en celulares
-- Reporte: el enlace de escucha no responde al toque en todas las canciones desde un celular.
-- Comprobado: los diez destinos de Bandcamp responden HTTP 200; en Chrome de escritorio el enlace y la reproducción de «Ya no puedo evitarte» funcionan. No se reprodujo todavía el fallo en el dispositivo del usuario.
-- Ajuste preventivo: eliminar el desplazamiento por hover/active de los botones de canciones en dispositivos táctiles, mantener un área mínima de 44 px y usar touch-action: manipulation. Se conserva la navegación nativa al destino de Bandcamp.
-- Se versionó la hoja de estilos en las diez páginas para renovar la caché. Pendiente: confirmación desde el celular afectado.
+
+**Estado: resuelto.** Brian confirmó desde su celular que el problema quedó solucionado el 26/10/2026.
+
+### Incidencia y contraste entre dispositivos
+
+- Recorrido afectado: página principal → seleccionar una canción → «Escuchar canción».
+- Comportamiento esperado: abrir la página de esa canción en Bandcamp, donde el visitante pulsa Play.
+- En el celular del usuario, tocar el botón no producía navegación. El reporte abarcaba las diez canciones.
+- En Chrome de escritorio, el enlace de «Ya no puedo evitarte» abría Bandcamp y el audio avanzaba al pulsar Play.
+- Los diez destinos de Bandcamp respondían HTTP 200. Esto comprobaba disponibilidad, pero no demostraba que el toque funcionara en el celular.
+
+### Hallazgo e interpretación
+
+La regla general `.btn:hover` aplicaba `transform: translateY(-2px)`: el botón se desplazaba al activar el estado hover. Se identificó esta interacción como posible interferencia con el toque y se aplicó una corrección específica para pantallas táctiles.
+
+La causa exacta no se aisló mediante una reproducción instrumentada en el celular afectado. La confirmación del usuario valida la solución conjunta; no permite atribuir con certeza el fallo exclusivamente al desplazamiento, al tamaño del botón o a la caché.
+
+### Solución aplicada
+
+- En `assets/css/styles.css`, los botones dentro de `.song-hero .actions` tienen una altura mínima de 44 px, alineación con `inline-flex` y `touch-action: manipulation`.
+- Bajo `@media (hover:none), (pointer:coarse)`, se elimina el desplazamiento en hover y active, y la transición se limita al fondo y al borde.
+- En las diez páginas `musica/*/index.html`, se versiona la referencia al CSS con `?v=20261026-touch` para solicitar el recurso actualizado.
+- Se conserva el enlace HTML directo a Bandcamp.
+
+### Evidencia de publicación y cierre
+
+- Commit de implementación: `76eb04a4f8f1b6d8cca45f0b5ff343bcab135fde`.
+- `python scripts/verificar_catalogo.py`: correcto.
+- `git diff --check`: correcto.
+- En el dominio oficial se comprobó que «Ya no puedo evitarte» cargaba el CSS versionado y que el botón tenía 44 px de altura y `touch-action: manipulation`.
+- Después de publicar, el botón probado abrió Bandcamp.
+- Confirmación final desde el celular afectado: Brian indicó «Solucionada».
+
+### Criterio para futuras webs
+
+Probar la activación real de los botones tanto con mouse como con toque. Reservar los desplazamientos de hover para dispositivos que admitan hover y puntero preciso; mantener estable y suficientemente amplia el área táctil. Tras cambiar estilos, comprobar su publicación y la caché. Un enlace válido y una prueba exitosa en escritorio no sustituyen la validación en el dispositivo que reportó el fallo.
