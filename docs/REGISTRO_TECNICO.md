@@ -96,3 +96,10 @@ Resultado observado en las últimas 24 horas:
 Conclusión: no se modificó `robots.txt gestionado`. La configuración vigente permite la búsqueda, las respuestas con referencia y los agentes de búsqueda, mientras reserva el contenido frente a rastreadores destinados principalmente al entrenamiento. Se mantiene como política publicada `search=yes`, `ai-train=no` y `use=reference`.
 
 Criterio para futuras revisiones: diferenciar siempre los bots de búsqueda o asistencia de los bots de entrenamiento. Por ejemplo, un rastreador de entrenamiento bloqueado no implica que el buscador o asistente de la misma empresa esté bloqueado. Solo cambiar la configuración si aparecen solicitudes fallidas de agentes de búsqueda que aporten indexación, citas o referencias.
+
+
+## 2026-10-26 — Botón de escucha en celulares
+- Reporte: el enlace de escucha no responde al toque en todas las canciones desde un celular.
+- Comprobado: los diez destinos de Bandcamp responden HTTP 200; en Chrome de escritorio el enlace y la reproducción de «Ya no puedo evitarte» funcionan. No se reprodujo todavía el fallo en el dispositivo del usuario.
+- Ajuste preventivo: eliminar el desplazamiento por hover/active de los botones de canciones en dispositivos táctiles, mantener un área mínima de 44 px y usar touch-action: manipulation. Se conserva la navegación nativa al destino de Bandcamp.
+- Se versionó la hoja de estilos en las diez páginas para renovar la caché. Pendiente: confirmación desde el celular afectado.
